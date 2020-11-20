@@ -6,20 +6,53 @@
         <xs:complexType>
             <xs:annotation>
                 <xs:documentation>
-                    A declaration object is a single, time-bound COI
+                    A declaration object is a single Conflict of Interest, be it a relationship with a company,
+                    benefit in kind, etc.
                 </xs:documentation>
             </xs:annotation>
             <xs:sequence>
                 <xs:element name="ID" type="tns:uuidType">
                     <xs:annotation>
                         <xs:documentation>
-                            ID for the declaration: should be a guid
+                            GUID for the record
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="CreatedDT" type="xs:dateTime"/>
-                <xs:element name="AppliesFromDT" type="xs:dateTime" minOccurs="0"/>
-                <xs:element name="AppliesUntilDT" type="xs:dateTime" minOccurs="0"/>
+                <xs:element name="RecordCreatedDT" type="xs:dateTime">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Date/time of this record creation
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RecordUpdatedDT" type="xs:dateTime" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Optional: date/time of last record update
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="RecordVersion" type="xs:long">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Versions of this record
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AppliesFromDT" type="xs:dateTime" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Optional: allows relationship to be time-bound
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="AppliesUntilDT" type="xs:dateTime" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Optional: allows relationship to be time-bound
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element name="Organisation" type="tns:OrganisationCOIType" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
@@ -28,7 +61,13 @@
     <xs:complexType name="OrganisationCOIType">
         <xs:sequence>
             <xs:element name="Name" type="xs:string"/>
-            <xs:element name="Relationship" type="tns:relationshipType" maxOccurs="unbounded"/>
+            <xs:element name="Relationship" type="tns:relationshipType" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        Persons may have multiple relationships with the same entity
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -39,6 +78,7 @@
             <xs:enumeration value="employee"/>
             <xs:enumeration value="trustee"/>
             <xs:enumeration value="volunteer"/>
+            <xs:enumeration value="customer"/>
         </xs:restriction>
     </xs:simpleType>
 
