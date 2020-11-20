@@ -53,23 +53,91 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="Organisation" type="tns:OrganisationCOIType" minOccurs="0"/>
+                <xs:choice>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Entity ID may be used if entity already exists and is known / already defined. Otherwise
+                            a full 'entityType' record must be supplied
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:element name="Entity" type="tns:EntityType"/>
+                    <xs:element name="EntityID" type="tns:uuidType"/>
+                </xs:choice>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="OrganisationCOIType">
+    <xs:complexType name="EntityType">
+        <xs:annotation>
+            <xs:documentation>
+                An entity is an organisation or individual
+            </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
-            <xs:element name="Name" type="xs:string"/>
+            <xs:element name="LegalName" type="xs:string"/>
+            <!-- TODO: should Relationship be unbounded? -->
             <xs:element name="Relationship" type="tns:relationshipType" maxOccurs="unbounded">
                 <xs:annotation>
                     <xs:documentation>
-                        Persons may have multiple relationships with the same entity
+                        Entities may have multiple relationships with other entities, however each of these should
+                        normally be declared as a separate COI.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="type" type="tns:entityType"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:simpleType name="entityType">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="PLC">
+                <xs:annotation>
+                    <xs:documentation>Public Limited Company</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LTD">
+                <xs:annotation>
+                    <xs:documentation>Private Limited Company by shares or guarantee</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="LLP">
+                <xs:annotation>
+                    <xs:documentation>Limited Liability Partnership</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CIC">
+                <xs:annotation>
+                    <xs:documentation>Community Interest Company</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="IPS">
+                <xs:annotation>
+                    <xs:documentation>Industrial and Provident Society (NI)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RC">
+                <xs:annotation>
+                    <xs:documentation>Royal Charter</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SE">
+                <xs:annotation>
+                    <xs:documentation>Societas Europaea</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ST">
+                <xs:annotation>
+                    <xs:documentation>Sole trader (UK)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="I">
+                <xs:annotation>
+                    <!-- TODO: probably should be more tightly defined -->
+                    <xs:documentation>Individual</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
 
     <xs:simpleType name="relationshipType">
         <xs:restriction base="xs:token">
