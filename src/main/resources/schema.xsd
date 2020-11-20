@@ -1,0 +1,51 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://pubcoi.org/" xmlns:tns="http://pubcoi.org/"
+           elementFormDefault="qualified">
+
+    <xs:element name="Declaration">
+        <xs:complexType>
+            <xs:annotation>
+                <xs:documentation>
+                    A declaration object is a single, time-bound COI
+                </xs:documentation>
+            </xs:annotation>
+            <xs:sequence>
+                <xs:element name="ID" type="tns:uuidType">
+                    <xs:annotation>
+                        <xs:documentation>
+                            ID for the declaration: should be a guid
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="CreatedDT" type="xs:dateTime"/>
+                <xs:element name="AppliesFromDT" type="xs:dateTime" minOccurs="0"/>
+                <xs:element name="AppliesUntilDT" type="xs:dateTime" minOccurs="0"/>
+                <xs:element name="Organisation" type="tns:OrganisationCOIType" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="OrganisationCOIType">
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string"/>
+            <xs:element name="Relationship" type="tns:relationshipType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="relationshipType">
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="shareholder"/>
+            <xs:enumeration value="director"/>
+            <xs:enumeration value="employee"/>
+            <xs:enumeration value="trustee"/>
+            <xs:enumeration value="volunteer"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="uuidType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

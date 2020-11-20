@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings version="2.1"
+               node="/xs:schema"
+               schemaLocation="schema.xsd"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <jaxb:globalBindings>
+        <jaxb:serializable uid="1"/>
+
+        <xjc:javaType name="java.time.Instant" xmlType="xs:dateTime"
+                      adapter="io.github.threetenjaxb.core.InstantXmlAdapter" />
+
+    </jaxb:globalBindings>
+
+
+    <jaxb:bindings node="//xs:simpleType[@name='uuidType']">
+        <jaxb:javaType name="java.util.UUID"
+                       parseMethod="org.pubcoi.models.bindings.UUIDConverter.parse"
+                       printMethod="org.pubcoi.models.bindings.UUIDConverter.print"/>
+    </jaxb:bindings>
+
+</jaxb:bindings>
