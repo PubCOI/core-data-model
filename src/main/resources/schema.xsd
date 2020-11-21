@@ -1,5 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://pubcoi.org/" xmlns:tns="http://pubcoi.org/"
+           targetNamespace="http://pubcoi.org/ns/declaration-1.0-draft" xmlns:tns="http://pubcoi.org/ns/declaration-1.0-draft"
            elementFormDefault="qualified">
 
     <xs:element name="Declaration">
@@ -76,7 +76,7 @@
         <xs:sequence>
             <xs:element name="LegalName" type="xs:string"/>
             <!-- TODO: should Relationship be unbounded? -->
-            <xs:element name="Relationship" type="tns:relationshipType" maxOccurs="unbounded">
+            <xs:element name="Relationship" type="tns:relationshipEnum" maxOccurs="unbounded">
                 <xs:annotation>
                     <xs:documentation>
                         Entities may have multiple relationships with other entities, however each of these should
@@ -84,11 +84,11 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="type" type="tns:entityType"/>
+            <xs:element name="type" type="tns:entityEnum"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:simpleType name="entityType">
+    <xs:simpleType name="entityEnum">
         <xs:restriction base="xs:token">
             <xs:enumeration value="PLC">
                 <xs:annotation>
@@ -139,7 +139,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="relationshipType">
+    <xs:simpleType name="relationshipEnum">
         <xs:restriction base="xs:token">
             <xs:enumeration value="shareholder"/>
             <xs:enumeration value="director"/>
