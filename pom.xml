@@ -4,29 +4,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.pubcoi.models</groupId>
-    <artifactId>coi</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <parent>
+        <groupId>org.pubcoi</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <artifactId>parent</artifactId>
+    </parent>
+
+    <artifactId>schemas</artifactId>
+    <version>${version.pubcoi}</version>
 
     <name>coi</name>
-    <url>https://github.com/PubCOI/coi-data-model</url>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+    <url>https://github.com/PubCOI/xml-schemas</url>
 
     <dependencies>
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
+            <version>${version.jaxb}</version>
         </dependency>
         <dependency>
+            <!-- for translating JSR-310 -->
             <groupId>io.github.threeten-jaxb</groupId>
             <artifactId>threeten-jaxb-core</artifactId>
-            <version>1.2</version>
+            <version>${version.threeten-jaxb-core}</version>
         </dependency>
     </dependencies>
 
@@ -78,7 +78,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>2.5.0</version>
+                <version>${version.jaxb2-maven-plugin}</version>
                 <executions>
                     <execution>
                         <id>xjc</id>
@@ -92,7 +92,7 @@
                         <xjbSource>src/main/resources/global.xjb</xjbSource>
                     </xjbSources>
                     <sources>
-                        <source>src/main/resources/schema.xsd</source>
+                        <source>src/main/resources/declaration.xsd</source>
                     </sources>
                     <packageName>org.pubcoi.models</packageName>
                     <arguments>-Xfluent-api</arguments>
@@ -101,12 +101,12 @@
                     <dependency>
                         <groupId>org.jvnet.jaxb2_commons</groupId>
                         <artifactId>jaxb2-basics</artifactId>
-                        <version>1.11.1</version>
+                        <version>${version.jaxb2-basics}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.jvnet.jaxb2_commons</groupId>
                         <artifactId>jaxb2-fluent-api</artifactId>
-                        <version>3.0</version>
+                        <version>${version.jaxb2-fluent-api}</version>
                     </dependency>
                 </dependencies>
             </plugin>

@@ -1,6 +1,6 @@
-# PubCOI core data model
+# PubCOI XML schemas
 
-XML schema for incoming / 2nd party PubCOI data; includes Maven config for building POJOs.
+XML schemas for incoming / 2nd party PubCOI data; includes Maven config for building POJOs.
 
 This model is used by third parties who wish to submit information to PubCOI: this includes 
 journals, employers, or individuals. Internal data model will be defined and stored elsewhere.
@@ -35,5 +35,4 @@ COI declaration
         <Relationship>shareholder</Relationship>
     </Entity>
 </Declaration>
-
 ```
